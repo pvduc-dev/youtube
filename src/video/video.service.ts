@@ -1,15 +1,24 @@
-import { Injectable } from '@nestjs/common';
-import { CreateVideoInput } from './dto/create-video.input';
-import { UpdateVideoInput } from './dto/update-video.input';
+import { Inject, Injectable } from '@nestjs/common';
+import { CreateVideoInput } from '@/video/dto/create-video.input';
+import { UpdateVideoInput } from '@/video/dto/update-video.input';
+import { InjectModel } from '@nestjs/mongoose';
+import { IVideo, Video } from '@/video/schemas/video.schema';
+import { Model } from 'mongoose';
+import { ClientGrpc } from '@nestjs/microservices';
 
 @Injectable()
 export class VideoService {
-  create(createVideoInput: CreateVideoInput) {
-    return 'This action adds a new video';
+  constructor(
+    @InjectModel(Video.name) private videoModel: Model<IVideo>,
+    @Inject('GRPC') private clientGrpc: ClientGrpc,
+  ) {}
+
+  async findAll() {
+    return this.videoModel.find();
   }
 
-  findAll() {
-    return `This action returns all video`;
+  create(createVideoInput: CreateVideoInput) {
+    return this.videoModel.create(createVideoInput);
   }
 
   findOne(id: number) {
