@@ -1,19 +1,23 @@
-import { CacheModule, Module, ValidationPipe } from "@nestjs/common";
-import { GraphQLModule } from "@nestjs/graphql";
-import { ApolloServerPluginLandingPageLocalDefault } from "apollo-server-core";
-import { ConfigModule, ConfigService } from "@nestjs/config";
-import { MongooseModule } from "@nestjs/mongoose";
-import { VideoModule } from "@/video/video.module";
-import { PubSub } from "graphql-subscriptions";
-import { SharedModule } from "@/shared/shared.module";
-import { APP_GUARD, APP_PIPE } from "@nestjs/core";
-import { AuthGuard, KeycloakConnectModule, ResourceGuard, RoleGuard, TokenValidation } from "nest-keycloak-connect";
-import * as redisStore from "cache-manager-redis-store";
-import { TerminusModule } from "@nestjs/terminus";
-import { AppController } from "@/app.controller";
-import { HttpModule } from "@nestjs/axios";
-import { HealthModule } from "./health/health.module";
-import { ClientsModule, Transport } from "@nestjs/microservices";
+import { CacheModule, Module, ValidationPipe } from '@nestjs/common';
+import { GraphQLModule } from '@nestjs/graphql';
+import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { MongooseModule } from '@nestjs/mongoose';
+import { VideoModule } from '@/video/video.module';
+import { PubSub } from 'graphql-subscriptions';
+import { SharedModule } from '@/shared/shared.module';
+import { APP_GUARD, APP_PIPE } from '@nestjs/core';
+import {
+  AuthGuard,
+  KeycloakConnectModule,
+  ResourceGuard,
+  RoleGuard,
+  TokenValidation,
+} from 'nest-keycloak-connect';
+import * as redisStore from 'cache-manager-redis-store';
+import { TerminusModule } from '@nestjs/terminus';
+import { AppController } from '@/app.controller';
+import { HttpModule } from '@nestjs/axios';
 
 @Module({
   imports: [
@@ -63,7 +67,6 @@ import { ClientsModule, Transport } from "@nestjs/microservices";
     HttpModule,
     VideoModule,
     SharedModule,
-    HealthModule,
   ],
   providers: [
     {
