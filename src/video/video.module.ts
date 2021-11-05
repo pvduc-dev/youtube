@@ -3,7 +3,6 @@ import { VideoService } from '@/video/video.service';
 import { VideoResolver } from '@/video/video.resolver';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Video, VideoSchema } from '@/video/schemas/video.schema';
-import { VideoController } from './video.controller';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { join } from 'path';
 
@@ -27,6 +26,5 @@ import { join } from 'path';
     ]),
   ],
   providers: [VideoResolver, VideoService],
-  controllers: [VideoController],
 })
 export class VideoModule {}
