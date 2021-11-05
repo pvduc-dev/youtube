@@ -43,8 +43,3 @@ jobs:
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
-
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
