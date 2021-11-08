@@ -1,11 +1,11 @@
-import { CacheModule, Module, ValidationPipe } from '@nestjs/common';
+import { Module, ValidationPipe } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
-import { VideoModule } from '@/video/video.module';
+import { VideoModule } from './video/video.module';
 import { PubSub } from 'graphql-subscriptions';
-import { SharedModule } from '@/shared/shared.module';
+import { SharedModule } from './shared/shared.module';
 import { APP_GUARD, APP_PIPE } from '@nestjs/core';
 import {
   AuthGuard,
@@ -14,22 +14,11 @@ import {
   RoleGuard,
   TokenValidation,
 } from 'nest-keycloak-connect';
-import * as redisStore from 'cache-manager-redis-store';
 import { TerminusModule } from '@nestjs/terminus';
-import { AppController } from '@/app.controller';
 import { HttpModule } from '@nestjs/axios';
 
 @Module({
   imports: [
-    CacheModule.registerAsync({
-      useFactory: async (configService: ConfigService) => ({
-        store: redisStore,
-        host: configService.get<string>('REDIS_HOST'),
-        port: configService.get<number>('REDIS_PORT'),
-      }),
-      inject: [ConfigService],
-      isGlobal: true,
-    }),
     ConfigModule.forRoot({ isGlobal: true }),
     GraphQLModule.forRoot({
       debug: true,
@@ -90,7 +79,6 @@ import { HttpModule } from '@nestjs/axios';
       useClass: RoleGuard,
     },
   ],
-  controllers: [AppController],
   exports: ['PUB_SUB'],
 })
 export class AppModule {}

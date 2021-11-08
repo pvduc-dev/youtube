@@ -5,9 +5,6 @@ import { Document } from 'mongoose';
 class Video {
   @Prop({ required: true })
   title: string;
-
-  @Prop()
-  description: string;
 }
 
 type IVideo = Video & Document;
